@@ -69,7 +69,8 @@ function loadProducts() {
   });
 
   // Bendras pelnas viršuje
-  const profitCard = document.createElement('div');
+  const profitCard = document.getElementById('profit-card') || document.createElement('div');
+  profitCard.id = 'profit-card';
   profitCard.classList.add('product-card');
   profitCard.innerHTML = `
     <h2>Bendras pelnas</h2>
@@ -78,7 +79,11 @@ function loadProducts() {
     <p>Pelnas (Dovydas Grynais): ${totalProfitDovydasCash}€</p>
     <p>Pelnas (Dovydas Banku): ${totalProfitDovydasBank}€</p>
   `;
-  document.body.insertBefore(profitCard, productList);
+  
+  // Įdedame pelno kortelę tik vieną kartą
+  if (!document.getElementById('profit-card')) {
+    document.body.insertBefore(profitCard, productList);
+  }
 }
 
 function sellProduct(productId, productName) {
@@ -100,8 +105,10 @@ function sellProduct(productId, productName) {
     // Pinigai pridedami tik prie atitinkamo produkto savininko
     if (productName.includes("Evaldas")) {
       totalProfitEvaldasCash += profit;
+      totalProfitEvaldasBank += profit;
     } else {
       totalProfitDovydasCash += profit;
+      totalProfitDovydasBank += profit;
     }
   }
 
