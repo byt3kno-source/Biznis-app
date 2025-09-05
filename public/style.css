@@ -45,10 +45,26 @@ h1 {
     background-color: #218838;
 }
 
+/* Pagrindinis stulpelių išdėstymas */
 #evaldas-column, #dovydas-column {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    width: 45%;
+    margin: 20px;
+}
+
+/* Priedo: aplink kiekvieną stulpelį */
+#evaldas-column {
+    padding-right: 20px;
+}
+
+#dovydas-column {
+    padding-left: 20px;
+}
+
+#notes-container {
+    margin-top: 20px;
 }
 
 textarea {
@@ -60,8 +76,4 @@ textarea {
     font-size: 14px;
     font-family: Arial, sans-serif;
     resize: none;
-}
-
-#notes-container {
-    margin-top: 20px;
 }
