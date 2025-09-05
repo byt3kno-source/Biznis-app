@@ -1,4 +1,3 @@
-/* Pagrindiniai stiliai */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -12,7 +11,6 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Kortelių stiliai */
 .product-card {
     background-color: #fff;
     border: 1px solid #ccc;
@@ -20,7 +18,6 @@ h1 {
     padding: 15px;
     margin: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px; /* Nustatoma kortelių plotis */
 }
 
 .product-card h3 {
@@ -48,14 +45,12 @@ h1 {
     background-color: #218838;
 }
 
-/* Stiliai lentelėms, kuriose rodomi Evaldo ir Dovydo produktai */
 #evaldas-column, #dovydas-column {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
-/* Stiliai užrašams, kur galite rašyti savo pastabas */
 textarea {
     width: 100%;
     padding: 10px;
@@ -67,24 +62,6 @@ textarea {
     resize: none;
 }
 
-/* Textarea minimalus aukštis */
-#notes {
-    min-height: 100px;
-}
-
-/* Reaktyvus dizainas mažiems ekranams */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    .product-card {
-        width: 100%; /* Kortelės užima visą plotį */
-        margin: 5px 0;
-    }
-
-    #evaldas-column, #dovydas-column {
-        flex-direction: column; /* Kortelės viena po kitos */
-        align-items: center;
-    }
+#notes-container {
+    margin-top: 20px;
 }
