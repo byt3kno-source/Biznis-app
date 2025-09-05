@@ -43,14 +43,19 @@ function loadProducts() {
   totalProfitDovydasVokelisEvaldui = 0;
 
   userProducts.forEach(product => {
+    // Užuot naudoję "undefined", užtikriname, kad pelnas visada yra 0
+    let Vokelis = product.Vokelis || 0;
+    let Banke = product.Banke || 0;
+    let VokelisEvaldui = product.VokelisEvaldui || 0;
+
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
     productCard.innerHTML = `
       <h3>${product.name}</h3>
       <p>Kiekis: ${product.Kiekis}</p>
       <p>Parduota: ${product.Parduota}</p>
-      <p>Vokelis: ${product.Vokelis}€</p>
-      <p>Banke: ${product.Banke}€</p>
+      <p>Vokelis: ${Vokelis}€</p>
+      <p>Banke: ${Banke}€</p>
       <p>Paimta sau: ${product.Sau} vienetų</p>
       <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis/Bankas)</button>
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
@@ -58,12 +63,12 @@ function loadProducts() {
     productList.appendChild(productCard);
 
     // Apskaičiuojame pelną atskirai Evaldui ir Dovydui
-    if (product.id <= 9) { // Evaldo produktai
-      totalProfitEvaldasVokelis += product.Vokelis;
-      totalProfitEvaldasBanke += product.Banke;
+    if (product.id <= 10) { // Evaldo produktai
+      totalProfitEvaldasVokelis += Vokelis;
+      totalProfitEvaldasBanke += Banke;
+      totalProfitDovydasVokelisEvaldui += VokelisEvaldui;
     } else { // Dovydo produktai
-      totalProfitDovydasVokelis += product.Vokelis;
-      totalProfitDovydasVokelisEvaldui += product.VokelisEvaldui;
+      totalProfitDovydasVokelis += Vokelis;
     }
   });
 
@@ -88,27 +93,30 @@ function loadProducts() {
 function sellProduct(productId, productName) {
   const quantity = prompt("Kiek vienetų parduota?");
   const price = prompt("Kokia pardavimo kaina?");
-  const paymentMethod = prompt("Atsiskaitymo būdas: Vokelis arba Banke");
+  const paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke, Dovydas Vokelis Evaldui");
 
   const product = findProductById(productId);
   if (product) {
     const profit = parseInt(price) * parseInt(quantity);
+    // Pasirinkimas, kur priskirti pinigus
     if (paymentMethod === "Vokelis") {
       product.Vokelis += profit;
     } else if (paymentMethod === "Banke") {
       product.Banke += profit;
+    } else if (paymentMethod === "Dovydas Vokelis Evaldui") {
+      product.VokelisEvaldui += profit;
     }
 
     product.Parduota += parseInt(quantity);
     product.Kiekis -= parseInt(quantity);
 
     // Pinigai pridedami tik prie atitinkamo produkto savininko
-    if (product.id <= 9) { // Evaldo produktai
+    if (product.id <= 10) { // Evaldo produktai
       totalProfitEvaldasVokelis += profit;
       totalProfitEvaldasBanke += profit;
+      totalProfitDovydasVokelisEvaldui += profit;
     } else { // Dovydo produktai
       totalProfitDovydasVokelis += profit;
-      totalProfitDovydasVokelisEvaldui += profit;
     }
   }
 
