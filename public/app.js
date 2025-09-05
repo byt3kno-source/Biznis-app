@@ -59,7 +59,6 @@ function loadProducts() {
     `;
     productList.appendChild(productCard);
 
-    // Apskaičiuojame pelną atskirai Evaldui ir Dovydui
     if (product.id <= 9) { // Evaldo produktai
       totalProfitEvaldasVokelis += Vokelis;
       totalProfitEvaldasBanke += Banke;
@@ -101,7 +100,6 @@ function sellProduct(productId, productName) {
   const price = prompt("Kokia pardavimo kaina?");
   let paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke, Dovydas Vokelis Evaldui (arba tiesiog įrašyk 'DE')");
 
-  // Jei įrašoma "DE", pakeičiame į pilną frazę
   if (paymentMethod === "DE") {
     paymentMethod = "Dovydas Vokelis Evaldui";
   }
@@ -110,8 +108,7 @@ function sellProduct(productId, productName) {
   if (product) {
     const profit = parseInt(price) * parseInt(quantity);
 
-    // Jei produktas priklauso Evaldui
-    if (product.id <= 9) {
+    if (product.id <= 9) { // Evaldo produktai
       if (paymentMethod === "Vokelis") {
         product.Vokelis += profit;
         totalProfitEvaldasVokelis += profit;
