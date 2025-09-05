@@ -23,24 +23,24 @@ const products = {
   ]
 };
 
-// Numatytoji vartotojo reikšmė
-let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
-let isAdmin = currentUser === "Admin";
+// Naudojame localStorage, kad išsaugotume prekes ir pelną
+function loadFromLocalStorage() {
+  const savedData = localStorage.getItem("products");
+  if (savedData) {
+    Object.assign(products, JSON.parse(savedData));
+  }
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem("products", JSON.stringify(products));
+}
 
 function loadProducts() {
-  if (!currentUser) return;
+  loadFromLocalStorage();
   const productList = document.getElementById("product-list");
   productList.innerHTML = '';
 
-  let userProducts = [];
-  if (isAdmin) {
-    userProducts = [...products["Evaldas"], ...products["Dovydas"]];
-  } else {
-    userProducts = products[currentUser];
-  }
-
-  let totalProfitCash = 0;
-  let totalProfitBank = 0;
+  let userProducts = products["Evaldas"].concat(products["Dovydas"]);
 
   userProducts.forEach(product => {
     const productCard = document.createElement('div');
@@ -56,33 +56,16 @@ function loadProducts() {
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
     productList.appendChild(productCard);
-
-    totalProfitCash += product.Grynais;
-    totalProfitBank += product.Banku;
   });
-
-  // Bendras pelnas viršuje
-  const profitCard = document.createElement('div');
-  profitCard.classList.add('product-card');
-  profitCard.innerHTML = `
-    <h2>Bendras pelnas (${currentUser})</h2>
-    <p>Pelnas (Grynais): ${totalProfitCash}€</p>
-    <p>Pelnas (Banku): ${totalProfitBank}€</p>
-  `;
-  document.body.insertBefore(profitCard, productList);
 }
 
+// Funkcijos pardavimams ir paėmimui sau liks tos pačios
 function sellProduct(productId) {
   const quantity = prompt("Kiek vienetų parduota?");
   const price = prompt("Kokia pardavimo kaina?");
   const paymentMethod = prompt("Atsiskaitymo būdas: Grynais arba Banku");
 
-  if (paymentMethod !== "Grynais" && paymentMethod !== "Banku") {
-    alert("Neteisingas atsiskaitymo būdas!");
-    return;
-  }
-
-  const product = findProductById(productId);
+  const product = products["Evaldas"].concat(products["Dovydas"]).find(p => p.id === productId);
   if (product) {
     const profit = parseInt(price) * parseInt(quantity);
     if (paymentMethod === "Grynais") {
@@ -94,29 +77,21 @@ function sellProduct(productId) {
     product.Kiekis -= parseInt(quantity);
   }
 
+  saveToLocalStorage();
   loadProducts();
 }
 
 function takeProduct(productId) {
   const quantity = prompt("Kiek vienetų pasiimi sau?");
-  const product = findProductById(productId);
+  const product = products["Evaldas"].concat(products["Dovydas"]).find(p => p.id === productId);
   if (product) {
     product.Kiekis -= parseInt(quantity);
     product.Sau += parseInt(quantity);
   }
 
+  saveToLocalStorage();
   loadProducts();
 }
 
-function findProductById(productId) {
-  let product = null;
-  if (currentUser && !isAdmin) {
-    product = products[currentUser].find(p => p.id === productId);
-  } else if (isAdmin) {
-    product = [...products["Evaldas"], ...products["Dovydas"]].find(p => p.id === productId);
-  }
-  return product;
-}
-
-// Įkeliame prekes automatiškai, kai puslapis atidarytas
+// Pirmas puslapio užkrovimas
 loadProducts();
