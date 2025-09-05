@@ -40,30 +40,36 @@ body {
     background-color: #218838;
 }
 
+#evaldas-column, #dovydas-column {
+    width: 45%;
+}
+
+#evaldas-column {
+    padding-right: 20px;
+}
+
+#dovydas-column {
+    padding-left: 20px;
+}
+
+/* Didesnis ekrano išdėstymas */
+@media (max-width: 768px) {
+    #evaldas-column, #dovydas-column {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
 #product-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-}
-
-.product-card {
-    width: 300px;
-    margin: 10px;
-}
-
-/* Add to Home Screen button with logo */
-.add-to-home-screen-btn {
-    width: 80px; /* Size of the logo button */
-    height: 80px;
-    background-image: url('images/A_digital_vector_illustration_features_a_shopping_.png'); /* Logo */
-    background-size: cover;
-    background-position: center;
-    border: none;
-    border-radius: 50%; /* Circle button */
-    cursor: pointer;
-    display: inline-block;
-}
-
-.add-to-home-screen-btn:hover {
-    opacity: 0.8; /* Slight transparency on hover */
+    justify-content: space-between;
 }
