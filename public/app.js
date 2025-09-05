@@ -29,16 +29,13 @@ let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
 function loadProducts() {
   const evaldasColumn = document.getElementById("evaldas-column");
   const dovydasColumn = document.getElementById("dovydas-column");
-  
+
   evaldasColumn.innerHTML = '';
   dovydasColumn.innerHTML = '';
 
-  let userProducts = [...products["Evaldas"]];
-  userProducts.forEach(product => {
-    let Vokelis = product.Vokelis || 0;
-    let Banke = product.Banke || 0;
-    let VokelisEvaldui = product.VokelisEvaldui || 0;
-
+  // Pirmiausia užpildome Evaldo produktus
+  let evaldasProducts = [...products["Evaldas"]];
+  evaldasProducts.forEach(product => {
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
     productCard.innerHTML = `
@@ -46,18 +43,17 @@ function loadProducts() {
       <p>Kiekis: ${product.Kiekis}</p>
       <p>Parduota: ${product.Parduota}</p>
       <p>Pasiimta sau: ${product.Sau} vienetų</p>
-      <p>Vokelis: ${Vokelis}€</p>
-      <p>Banke: ${Banke}€</p>
+      <p>Vokelis: ${product.Vokelis}€</p>
+      <p>Banke: ${product.Banke}€</p>
       <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis/Bankas)</button>
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
     evaldasColumn.appendChild(productCard);
   });
 
+  // Dabar užpildome Dovydo produktus
   let dovydasProducts = [...products["Dovydas"]];
   dovydasProducts.forEach(product => {
-    let Vokelis = product.Vokelis || 0;
-
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
     productCard.innerHTML = `
@@ -65,7 +61,7 @@ function loadProducts() {
       <p>Kiekis: ${product.Kiekis}</p>
       <p>Parduota: ${product.Parduota}</p>
       <p>Pasiimta sau: ${product.Sau} vienetų</p>
-      <p>Vokelis: ${Vokelis}€</p>
+      <p>Vokelis: ${product.Vokelis}€</p>
       <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis)</button>
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
@@ -77,13 +73,13 @@ function sellProduct(productId, productName) {
   const quantity = prompt("Kiek vienetų parduota?");
   const price = prompt("Kokia pardavimo kaina?");
   let paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke");
-  }
 
   const product = findProductById(productId);
   if (product) {
     const profit = parseInt(price) * parseInt(quantity);
 
-    if (product.id <= 9) { // Evaldo produktai
+    // Evaldo produktai
+    if (product.id <= 9) {
       if (paymentMethod === "Vokelis") {
         product.Vokelis += profit;
       } else if (paymentMethod === "Banke") {
