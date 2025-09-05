@@ -61,6 +61,7 @@ body {
     border: none;
     border-radius: 50%; /* Circle button */
     cursor: pointer;
+    display: inline-block;
 }
 
 .add-to-home-screen-btn:hover {
