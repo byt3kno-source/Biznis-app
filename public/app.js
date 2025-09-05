@@ -59,6 +59,7 @@ function loadProducts() {
     `;
     productList.appendChild(productCard);
 
+    // Apskaičiuojame pelną atskirai Evaldui ir Dovydui
     if (product.id <= 9) { // Evaldo produktai
       totalProfitEvaldasVokelis += Vokelis;
       totalProfitEvaldasBanke += Banke;
@@ -122,7 +123,7 @@ function sellProduct(productId, productName) {
         totalProfitDovydasVokelisEvaldui += profit;
       }
     } else { // Dovydo produktai
-      product.Vokelis += profit;
+      product.Vokelis += profit;  
       totalProfitDovydasVokelis += profit;
     }
 
