@@ -73,12 +73,12 @@ function loadProducts() {
 // Funkcija, kuri atlieka pardavimą
 function sellProduct(productId, productName) {
   const quantity = prompt("Kiek vienetų parduota?");
-  const price = prompt("Kokia pardavimo kaina?");
+  const totalAmount = prompt("Kokia bendra pardavimo suma?");
   let paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke");
 
   const product = findProductById(productId);
   if (product) {
-    const profit = parseInt(price) * parseInt(quantity);
+    const profit = parseInt(totalAmount); // Naudojame bendrą sumą, o ne kiekvieną vienetą atskirai
 
     if (product.id <= 9) { // Evaldo produktai
       if (paymentMethod === "Vokelis") {
