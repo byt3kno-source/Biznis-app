@@ -26,6 +26,7 @@ const products = {
 // Numatytoji vartotojo reikšmė
 let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
 
+// Funkcija, kuri užkrauna produktus į puslapį
 function loadProducts() {
   const evaldasColumn = document.getElementById("evaldas-column");
   const dovydasColumn = document.getElementById("dovydas-column");
@@ -69,6 +70,7 @@ function loadProducts() {
   });
 }
 
+// Funkcija, kuri atlieka pardavimą
 function sellProduct(productId, productName) {
   const quantity = prompt("Kiek vienetų parduota?");
   const price = prompt("Kokia pardavimo kaina?");
@@ -96,6 +98,7 @@ function sellProduct(productId, productName) {
   loadProducts();
 }
 
+// Funkcija, kuri leidžia pasiimti produktą sau
 function takeProduct(productId) {
   const quantity = prompt("Kiek vienetų pasiimi sau?");
   const product = findProductById(productId);
@@ -107,6 +110,7 @@ function takeProduct(productId) {
   loadProducts();
 }
 
+// Funkcija, kuri randa produktą pagal ID
 function findProductById(productId) {
   let product = null;
   product = [...products["Evaldas"], ...products["Dovydas"]].find(p => p.id === productId);
