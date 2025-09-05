@@ -43,8 +43,12 @@ function loadProducts() {
       <p>Kiekis: ${product.Kiekis}</p>
       <p>Parduota: ${product.Parduota}</p>
       <p>Pasiimta sau: ${product.Sau} vienetų</p>
-      <p>Vokelis: ${Vokelis}€ už ${product.Parduota}vnt.</p>
-      <p>Banke: ${Banke}€ už ${product.Parduota}vnt.</p>
+      ${product.id <= 9 ? `
+        <p>Vokelis: ${Vokelis}€</p>
+        <p>Banke: ${Banke}€</p>
+      ` : `
+        <p>Vokelis: ${Vokelis}€</p>
+      `}
       <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis/Bankas)</button>
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
@@ -74,7 +78,7 @@ function sellProduct(productId, productName) {
         product.VokelisEvaldui += profit;
       }
     } else { // Dovydo produktai
-      product.Vokelis += profit;  
+      product.Vokelis += profit;
     }
 
     product.Parduota += parseInt(quantity);
