@@ -80,8 +80,7 @@ function sellProduct(productId, productName) {
   if (product) {
     const profit = parseInt(price) * parseInt(quantity);
 
-    // Evaldo produktai
-    if (product.id <= 9) {
+    if (product.id <= 9) { // Evaldo produktai
       if (paymentMethod === "Vokelis") {
         product.Vokelis += profit;
       } else if (paymentMethod === "Banke") {
