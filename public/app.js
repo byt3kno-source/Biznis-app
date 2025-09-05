@@ -61,7 +61,6 @@ function loadProducts() {
     `;
     productList.appendChild(productCard);
 
-    // Apskaičiuojame pelną atskirai Evaldui ir Dovydui
     if (product.id <= 9) { // Evaldo produktai
       totalProfitEvaldasVokelis += Vokelis;
       totalProfitEvaldasBanke += Banke;
@@ -92,7 +91,7 @@ function sellProduct(productId, productName) {
   const price = prompt("Kokia pardavimo kaina?");
   let paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke, Dovydas Vokelis Evaldui (arba tiesiog įrašyk 'DE')");
 
-  // Jeigu įrašoma "DE", keičiam į pilną frazę
+  // Jei įrašoma "DE", pakeičiame į pilną frazę
   if (paymentMethod === "DE") {
     paymentMethod = "Dovydas Vokelis Evaldui";
   }
@@ -100,25 +99,26 @@ function sellProduct(productId, productName) {
   const product = findProductById(productId);
   if (product) {
     const profit = parseInt(price) * parseInt(quantity);
-    // Pasirinkimas, kur priskirti pinigus
-    if (paymentMethod === "Vokelis") {
-      product.Vokelis += profit;
-    } else if (paymentMethod === "Banke") {
-      product.Banke += profit;
-    } else if (paymentMethod === "Dovydas Vokelis Evaldui") {
-      product.VokelisEvaldui += profit;
+    
+    // Jei produktas priklauso Evaldui
+    if (product.id <= 9) {
+      if (paymentMethod === "Vokelis") {
+        product.Vokelis += profit;
+        totalProfitEvaldasVokelis += profit;
+      } else if (paymentMethod === "Banke") {
+        product.Banke += profit;
+        totalProfitEvaldasBanke += profit;
+      } else if (paymentMethod === "Dovydas Vokelis Evaldui") {
+        product.VokelisEvaldui += profit;
+        totalProfitDovydasVokelisEvaldui += profit;
+      }
+    } else { // Dovydo produktai
+      product.Vokelis += profit;  // Visi Dovydo produktai pinigus prideda į Vokelis
+      totalProfitDovydasVokelis += profit;
     }
 
     product.Parduota += parseInt(quantity);
     product.Kiekis -= parseInt(quantity);
-
-    if (product.id <= 9) { // Evaldo produktai
-      totalProfitEvaldasVokelis += profit;
-      totalProfitEvaldasBanke += profit;
-      totalProfitDovydasVokelisEvaldui += profit;
-    } else { // Dovydo produktai
-      totalProfitDovydasVokelis += profit;
-    }
   }
 
   loadProducts();
