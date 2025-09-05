@@ -1,0 +1,16 @@
+# Node.js
+node_modules/
+
+# Priklausomybės
+npm-debug.log
+yarn-error.log
+
+# Operacinės sistemos sugeneruoti failai
+.DS_Store
+Thumbs.db
+
+# Laikini failai ir talpykla
+.cache/
+
+# Netlify specifiniai failai
+netlify.toml
