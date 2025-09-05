@@ -47,8 +47,7 @@ function loadProducts() {
   totalSoldUnitsDovydas = 0;
 
   userProducts.forEach(product => {
-    let EVokelis = product.EVokelis || 0;
-    let DVokelis = product.DVokelis || 0;
+    let Vokelis = product.Vokelis || 0;
     let Banke = product.Banke || 0;
     let VokelisEvaldui = product.VokelisEvaldui || 0;
 
@@ -65,12 +64,12 @@ function loadProducts() {
     productList.appendChild(productCard);
 
     if (product.id <= 9) { // Evaldo produktai
-      totalProfitEvaldasVokelis += EVokelis;
+      totalProfitEvaldasVokelis += Vokelis;
       totalProfitEvaldasBanke += Banke;
       totalProfitDovydasVokelisEvaldui += VokelisEvaldui;
       totalSoldUnitsEvaldas += product.Parduota;
     } else { // Dovydo produktai
-      totalProfitDovydasVokelis += DVokelis;
+      totalProfitDovydasVokelis += Vokelis;
       totalSoldUnitsDovydas += product.Parduota;
     }
   });
@@ -106,7 +105,7 @@ function sellProduct(productId, productName) {
 
     if (product.id <= 9) { // Evaldo produktai
       if (paymentMethod === "Vokelis") {
-        product.EVokelis += profit;
+        product.Vokelis += profit;
         totalProfitEvaldasVokelis += profit;
       } else if (paymentMethod === "Banke") {
         product.Banke += profit;
@@ -116,7 +115,7 @@ function sellProduct(productId, productName) {
         totalProfitDovydasVokelisEvaldui += profit;
       }
     } else { // Dovydo produktai
-      product.DVokelis += profit;  
+      product.Vokelis += profit;  
       totalProfitDovydasVokelis += profit;
     }
 
