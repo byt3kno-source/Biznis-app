@@ -1,57 +1,44 @@
 // Pavyzdinis duomenų rinkinys
 const products = {
   "Evaldas": [
-    { id: 1, name: "Fizzy Cherry Ice & Blueberry Cotton Candy", quantity: 10, sales: 0, profit: 0 },
-    { id: 2, name: "Mixed Berries & Double Apple Ice", quantity: 10, sales: 0, profit: 0 },
-    { id: 3, name: "Blue Razz Lemonade & Watermelon Bubblegum", quantity: 10, sales: 0, profit: 0 },
-    { id: 4, name: "Strawberry Watermelon Bubblegum & Mixed Fruit", quantity: 10, sales: 0, profit: 0 },
-    { id: 5, name: "Sour Apple Raspberry & Strawberry Big Bang", quantity: 10, sales: 0, profit: 0 },
-    { id: 6, name: "Peach Berry & Watermelon Mango Peach", quantity: 10, sales: 0, profit: 0 },
-    { id: 7, name: "Strawberry Cherry & Kiwi Passion Fruit", quantity: 10, sales: 0, profit: 0 },
-    { id: 8, name: "Gummy Bear & Strawberry Cola", quantity: 10, sales: 0, profit: 0 },
-    { id: 9, name: "Triple Melon Ice & Raspberry Watermelon", quantity: 10, sales: 0, profit: 0 }
+    { id: 1, name: "Fizzy Cherry Ice & Blueberry Cotton Candy", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 2, name: "Mixed Berries & Double Apple Ice", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 3, name: "Blue Razz Lemonade & Watermelon Bubblegum", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 4, name: "Strawberry Watermelon Bubblegum & Mixed Fruit", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 5, name: "Sour Apple Raspberry & Strawberry Big Bang", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 6, name: "Peach Berry & Watermelon Mango Peach", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 7, name: "Strawberry Cherry & Kiwi Passion Fruit", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 8, name: "Gummy Bear & Strawberry Cola", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 9, name: "Triple Melon Ice & Raspberry Watermelon", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 }
   ],
   "Dovydas": [
-    { id: 1, name: "Watermelon Ice & Lemon Lime", quantity: 10, sales: 0, profit: 0 },
-    { id: 2, name: "Grape Ice & Strawberry Kiwi", quantity: 10, sales: 0, profit: 0 },
-    { id: 3, name: "Strawberry Raspberry Cherry & Love 666", quantity: 20, sales: 0, profit: 0 },
-    { id: 4, name: "Cherry Cola Ice & Strawberry Raspberry Candy", quantity: 10, sales: 0, profit: 0 },
-    { id: 5, name: "Blueberry Ice & Black Dragon Ice", quantity: 10, sales: 0, profit: 0 },
-    { id: 6, name: "Strawberry Cherry & Kiwi Passion Fruit", quantity: 10, sales: 0, profit: 0 },
-    { id: 7, name: "Banana Pineapple Ice & Red Bull Ice", quantity: 10, sales: 0, profit: 0 },
-    { id: 8, name: "Red Bull Strawberry & Blackcurrant Ice", quantity: 10, sales: 0, profit: 0 }
+    { id: 1, name: "Watermelon Ice & Lemon Lime", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 2, name: "Grape Ice & Strawberry Kiwi", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 3, name: "Strawberry Raspberry Cherry & Love 666", quantity: 20, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 4, name: "Cherry Cola Ice & Strawberry Raspberry Candy", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 5, name: "Blueberry Ice & Black Dragon Ice", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 6, name: "Strawberry Cherry & Kiwi Passion Fruit", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 7, name: "Banana Pineapple Ice & Red Bull Ice", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 },
+    { id: 8, name: "Red Bull Strawberry & Blackcurrant Ice", quantity: 10, sales: 0, profitCash: 0, profitBank: 0, takenForSelf: 0 }
   ]
 };
 
-// Naudotojo prisijungimas su PIN kodu
-const PIN_CODES = {
-  Evaldas: "6719",
-  Dovydas: "5535",
-  Admin: "903001"
-};
-
-let currentUser = localStorage.getItem('currentUser'); // Naudotojas išsaugomas per `localStorage`
-let isAdmin = false;  // Patikrina, ar prisijungė admin
+// Prisijungimo pasirinkimas
+let currentUser = null;
+let isAdmin = false;
 
 function login() {
-  if (currentUser) {
-    loadProducts();
-    return;
-  }
+  const userChoice = prompt("Choose user: Evaldas, Dovydas or Admin");
 
-  const pin = prompt("Enter your PIN:");
-  if (pin === PIN_CODES.Evaldas) {
+  if (userChoice === "Evaldas") {
     currentUser = "Evaldas";
-    localStorage.setItem('currentUser', currentUser);
-  } else if (pin === PIN_CODES.Dovydas) {
+  } else if (userChoice === "Dovydas") {
     currentUser = "Dovydas";
-    localStorage.setItem('currentUser', currentUser);
-  } else if (pin === PIN_CODES.Admin) {
+  } else if (userChoice === "Admin") {
     currentUser = "Admin";
     isAdmin = true;
-    localStorage.setItem('currentUser', currentUser);
   } else {
-    alert("Incorrect PIN");
+    alert("Invalid user!");
     return;
   }
 
@@ -70,6 +57,9 @@ function loadProducts() {
     userProducts = products[currentUser];
   }
 
+  let totalProfitCash = 0;
+  let totalProfitBank = 0;
+
   userProducts.forEach(product => {
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
@@ -77,78 +67,73 @@ function loadProducts() {
       <h3>${product.name}</h3>
       <p>Quantity: ${product.quantity}</p>
       <p>Sales: ${product.sales}</p>
-      <p>Profit: ${product.profit}€</p>
-      <button onclick="sellProduct(${product.id})">Sell</button>
+      <p>Profit (Cash): ${product.profitCash}€</p>
+      <p>Profit (Bank): ${product.profitBank}€</p>
+      <p>Taken for Myself: ${product.takenForSelf} units</p>
+      <button onclick="sellProduct(${product.id})">Sell (Cash/Bank)</button>
       <button onclick="takeProduct(${product.id})">Take for Myself</button>
-      <button onclick="transferProduct(${product.id})">Transfer</button>
     `;
     productList.appendChild(productCard);
+
+    totalProfitCash += product.profitCash;
+    totalProfitBank += product.profitBank;
   });
 
-  if (isAdmin) {
-    const switchButton = document.createElement('button');
-    switchButton.textContent = "Switch User";
-    switchButton.onclick = switchUser;
-    document.body.appendChild(switchButton);
-  }
-}
-
-function switchUser() {
-  const newUser = prompt("Enter new user (Evaldas or Dovydas):");
-  if (newUser === "Evaldas" || newUser === "Dovydas") {
-    currentUser = newUser;
-    localStorage.setItem('currentUser', currentUser);
-    loadProducts();
-  } else {
-    alert("Invalid user.");
-  }
+  // Bendras pelnas viršuje
+  const profitCard = document.createElement('div');
+  profitCard.classList.add('product-card');
+  profitCard.innerHTML = `
+    <h2>Total Profit for ${currentUser}</h2>
+    <p>Total Profit (Cash): ${totalProfitCash}€</p>
+    <p>Total Profit (Bank): ${totalProfitBank}€</p>
+  `;
+  document.body.insertBefore(profitCard, productList);
 }
 
 function sellProduct(productId) {
   const quantity = prompt("How many units sold?");
   const price = prompt("What is the sale price?");
-  updateProduct(productId, quantity, price, 'sell');
+  const paymentMethod = prompt("Payment method: Cash or Bank?");
+  
+  if (paymentMethod !== "Cash" && paymentMethod !== "Bank") {
+    alert("Invalid payment method!");
+    return;
+  }
+
+  const product = findProductById(productId);
+  if (product) {
+    const profit = parseInt(price) * parseInt(quantity);
+    if (paymentMethod === "Cash") {
+      product.profitCash += profit;
+    } else {
+      product.profitBank += profit;
+    }
+    product.sales += parseInt(quantity);
+    product.quantity -= parseInt(quantity);
+  }
+
+  loadProducts();
 }
 
 function takeProduct(productId) {
   const quantity = prompt("How many units will you take for yourself?");
-  updateProduct(productId, quantity, 0, 'take');
-}
-
-function transferProduct(productId) {
-  const targetUser = prompt("Enter the name of the user to transfer to (Evaldas or Dovydas):");
-  if (targetUser !== "Evaldas" && targetUser !== "Dovydas") {
-    alert("Invalid user.");
-    return;
-  }
-  const quantity = prompt("How many units to transfer?");
-  const product = products[currentUser].find(p => p.id === productId);
-  const transferProduct = { ...product, owner: targetUser };
-  products[targetUser].push(transferProduct);
-  updateProduct(productId, quantity, 0, 'transfer', targetUser);
-}
-
-function updateProduct(productId, quantity, price, action, targetUser = currentUser) {
-  const product = products[targetUser].find(p => p.id === productId);
-  if (!product) return;
-
-  switch (action) {
-    case 'sell':
-      product.quantity -= quantity;
-      product.sales += parseInt(quantity);
-      product.profit += parseInt(price) * parseInt(quantity);
-      break;
-    case 'take':
-      product.quantity -= quantity;
-      break;
-    case 'transfer':
-      product.quantity -= quantity;
-      break;
-    default:
-      return;
+  const product = findProductById(productId);
+  if (product) {
+    product.quantity -= parseInt(quantity);
+    product.takenForSelf += parseInt(quantity);
   }
 
   loadProducts();
+}
+
+function findProductById(productId) {
+  let product = null;
+  if (currentUser && !isAdmin) {
+    product = products[currentUser].find(p => p.id === productId);
+  } else if (isAdmin) {
+    product = [...products["Evaldas"], ...products["Dovydas"]].find(p => p.id === productId);
+  }
+  return product;
 }
 
 login();
