@@ -23,14 +23,10 @@ const products = {
   ]
 };
 
-// Numatytoji vartotojo reikšmė
-let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
-
 // Funkcija, kuri užkrauna produktus į puslapį
 function loadProducts() {
   const evaldasColumn = document.getElementById("evaldas-column");
   const dovydasColumn = document.getElementById("dovydas-column");
-  const notesArea = document.getElementById("notes");
 
   evaldasColumn.innerHTML = '';
   dovydasColumn.innerHTML = '';
@@ -69,65 +65,7 @@ function loadProducts() {
     `;
     dovydasColumn.appendChild(productCard);
   });
-
-  // Užrašų sritis (pastabos)
-  notesArea.value = localStorage.getItem("notes") || "";
-}
-
-// Funkcija, kuri atlieka pardavimą
-function sellProduct(productId, productName) {
-  const quantity = prompt("Kiek vienetų parduota?");
-  const totalAmount = prompt("Kokia bendra pardavimo suma?");
-  let paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke");
-
-  const product = findProductById(productId);
-  if (product) {
-    const profit = parseInt(totalAmount); // Naudojame bendrą sumą
-
-    if (product.id <= 9) { // Evaldo produktai
-      if (paymentMethod === "Vokelis") {
-        product.Vokelis += profit;
-      } else if (paymentMethod === "Banke") {
-        product.Banke += profit;
-      }
-    } else { // Dovydo produktai
-      product.Vokelis += profit;
-    }
-
-    product.Parduota += parseInt(quantity);
-    product.Kiekis -= parseInt(quantity);
-  }
-
-  loadProducts();
-}
-
-// Funkcija, kuri leidžia pasiimti produktą sau
-function takeProduct(productId) {
-  const quantity = prompt("Kiek vienetų pasiimi sau?");
-  const product = findProductById(productId);
-  if (product) {
-    product.Kiekis -= parseInt(quantity);
-    product.Sau += parseInt(quantity);
-  }
-
-  loadProducts();
-}
-
-// Funkcija, kuri randa produktą pagal ID
-function findProductById(productId) {
-  let product = null;
-  product = [...products["Evaldas"], ...products["Dovydas"]].find(p => p.id === productId);
-  return product;
-}
-
-// Funkcija, kuri įrašo užrašus į localStorage
-function saveNotes() {
-  const notesArea = document.getElementById("notes");
-  localStorage.setItem("notes", notesArea.value);
 }
 
 // Pirmas puslapio užkrovimas
 loadProducts();
-
-// Išsaugoti užrašus kas kartą, kai keičiasi
-document.getElementById("notes").addEventListener('input', saveNotes);
