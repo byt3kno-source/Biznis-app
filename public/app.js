@@ -31,6 +31,8 @@ let totalProfitEvaldasVokelis = 0;
 let totalProfitEvaldasBanke = 0;
 let totalProfitDovydasVokelis = 0;
 let totalProfitDovydasVokelisEvaldui = 0;
+let totalSoldUnitsEvaldas = 0;
+let totalSoldUnitsDovydas = 0;
 
 function loadProducts() {
   const productList = document.getElementById("product-list");
@@ -41,6 +43,8 @@ function loadProducts() {
   totalProfitEvaldasBanke = 0;
   totalProfitDovydasVokelis = 0;
   totalProfitDovydasVokelisEvaldui = 0;
+  totalSoldUnitsEvaldas = 0;
+  totalSoldUnitsDovydas = 0;
 
   userProducts.forEach(product => {
     let Vokelis = product.Vokelis || 0;
@@ -59,13 +63,14 @@ function loadProducts() {
     `;
     productList.appendChild(productCard);
 
-    // Apskaičiuojame pelną atskirai Evaldui ir Dovydui
     if (product.id <= 9) { // Evaldo produktai
       totalProfitEvaldasVokelis += Vokelis;
       totalProfitEvaldasBanke += Banke;
       totalProfitDovydasVokelisEvaldui += VokelisEvaldui;
+      totalSoldUnitsEvaldas += product.Parduota;
     } else { // Dovydo produktai
       totalProfitDovydasVokelis += Vokelis;
+      totalSoldUnitsDovydas += product.Parduota;
     }
   });
 
@@ -74,26 +79,15 @@ function loadProducts() {
   profitCard.classList.add('product-card');
   profitCard.innerHTML = `
     <h2>Bendras pelnas</h2>
-    <p>Evaldas Vokelis: ${totalProfitEvaldasVokelis}€ už ${calculateSoldQuantity(1)}vnt.</p>
-    <p>Evaldas Banke: ${totalProfitEvaldasBanke}€ už ${calculateSoldQuantity(1)}vnt.</p>
-    <p>Dovydas Vokelis: ${totalProfitDovydasVokelis}€ už ${calculateSoldQuantity(10)}vnt.</p>
-    <p>Dovydas Vokelis Evaldui: ${totalProfitDovydasVokelisEvaldui}€ už ${calculateSoldQuantity(10)}vnt.</p>
+    <p>Evaldas Vokelis: ${totalProfitEvaldasVokelis}€ už ${totalSoldUnitsEvaldas}vnt.</p>
+    <p>Evaldas Banke: ${totalProfitEvaldasBanke}€ už ${totalSoldUnitsEvaldas}vnt.</p>
+    <p>Dovydas Vokelis: ${totalProfitDovydasVokelis}€ už ${totalSoldUnitsDovydas}vnt.</p>
+    <p>Dovydas Vokelis Evaldui: ${totalProfitDovydasVokelisEvaldui}€ už ${totalSoldUnitsDovydas}vnt.</p>
   `;
   
   if (!document.getElementById('profit-card')) {
     document.body.insertBefore(profitCard, productList);
   }
-}
-
-function calculateSoldQuantity(userId) {
-  let soldQuantity = 0;
-  let userProducts = [...products["Evaldas"], ...products["Dovydas"]];
-  userProducts.forEach(product => {
-    if (product.id <= userId) {
-      soldQuantity += product.Parduota;
-    }
-  });
-  return soldQuantity;
 }
 
 function sellProduct(productId, productName) {
