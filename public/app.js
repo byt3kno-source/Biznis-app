@@ -26,17 +26,15 @@ const products = {
 // Numatytoji vartotojo reikšmė
 let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
 
-// Funkcija, kuri užkrauna produktus į puslapį
 function loadProducts() {
   const evaldasColumn = document.getElementById("evaldas-column");
   const dovydasColumn = document.getElementById("dovydas-column");
-
+  
   evaldasColumn.innerHTML = '';
   dovydasColumn.innerHTML = '';
 
-  // Pirmiausia užpildome Evaldo produktus
-  let evaldasProducts = [...products["Evaldas"]];
-  evaldasProducts.forEach(product => {
+  let userProducts = [...products["Evaldas"]];
+  userProducts.forEach(product => {
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
     productCard.innerHTML = `
@@ -54,7 +52,6 @@ function loadProducts() {
     evaldasColumn.appendChild(productCard);
   });
 
-  // Dabar užpildome Dovydo produktus
   let dovydasProducts = [...products["Dovydas"]];
   dovydasProducts.forEach(product => {
     const productCard = document.createElement('div');
@@ -72,32 +69,26 @@ function loadProducts() {
     `;
     dovydasColumn.appendChild(productCard);
   });
+
+  // Pridėkime įvesties lauką po visų produktų
+  const additionalInput = document.createElement('div');
+  additionalInput.innerHTML = `
+    <h3>Įveskite bendrą pardavimo sumą ir kiekį:</h3>
+    <input type="text" id="totalQuantity" placeholder="Įveskite bendrą parduotų vienetų kiekį" />
+    <input type="text" id="totalAmount" placeholder="Įveskite bendrą pardavimo sumą" />
+    <button onclick="submitSale()">Įrašyti pardavimą</button>
+  `;
+  document.body.appendChild(additionalInput);
 }
 
-// Funkcija, kuri atlieka pardavimą
-function sellProduct(productId, productName) {
-  const quantity = document.getElementById(`quantity-${productId}`).value;
-  const totalAmount = document.getElementById(`price-${productId}`).value;
-  let paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke");
+// Funkcija, kuri atlieka pardavimą su įvestais duomenimis
+function submitSale() {
+  const quantity = document.getElementById("totalQuantity").value;
+  const totalAmount = document.getElementById("totalAmount").value;
+  const paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke");
 
-  const product = findProductById(productId);
-  if (product) {
-    const profit = parseInt(totalAmount); // Naudojame bendrą sumą, o ne kiekvieną vienetą atskirai
-
-    if (product.id <= 9) { // Evaldo produktai
-      if (paymentMethod === "Vokelis") {
-        product.Vokelis += profit;
-      } else if (paymentMethod === "Banke") {
-        product.Banke += profit;
-      }
-    } else { // Dovydo produktai
-      product.Vokelis += profit;
-    }
-
-    product.Parduota += parseInt(quantity);
-    product.Kiekis -= parseInt(quantity);
-  }
-
+  // Čia būtų galima pridėti logiką, kaip įrašyti bendrą pardavimo sumą ir kiekį, o ne tik už vienetus
+  alert(`Pardavėte ${quantity} vienetų už ${totalAmount}€ (${paymentMethod})`);
   loadProducts();
 }
 
