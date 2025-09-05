@@ -33,16 +33,14 @@ function loadProducts() {
   productList.innerHTML = '';
 
   let userProducts = [];
-  if (isAdmin) {
-    userProducts = [...products["Evaldas"], ...products["Dovydas"]];
-  } else {
-    userProducts = products[currentUser];
-  }
+  let totalProfitEvaldasCash = 0;
+  let totalProfitEvaldasBank = 0;
+  let totalProfitDovydasCash = 0;
+  let totalProfitDovydasBank = 0;
 
-  let totalProfitCash = 0;
-  let totalProfitBank = 0;
-
-  userProducts.forEach(product => {
+  // Atnaujinam tiek Evaldo, tiek Dovydo prekes
+  const allProducts = [...products["Evaldas"], ...products["Dovydas"]];
+  allProducts.forEach(product => {
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
     productCard.innerHTML = `
@@ -57,17 +55,25 @@ function loadProducts() {
     `;
     productList.appendChild(productCard);
 
-    totalProfitCash += product.Grynais;
-    totalProfitBank += product.Banku;
+    // Apskaičiuojame pelnus
+    if (product.name.includes("Evaldas")) {
+      totalProfitEvaldasCash += product.Grynais;
+      totalProfitEvaldasBank += product.Banku;
+    } else {
+      totalProfitDovydasCash += product.Grynais;
+      totalProfitDovydasBank += product.Banku;
+    }
   });
 
   // Bendras pelnas viršuje
   const profitCard = document.createElement('div');
   profitCard.classList.add('product-card');
   profitCard.innerHTML = `
-    <h2>Bendras pelnas (${currentUser})</h2>
-    <p>Pelnas (Grynais): ${totalProfitCash}€</p>
-    <p>Pelnas (Banku): ${totalProfitBank}€</p>
+    <h2>Bendras pelnas</h2>
+    <p>Pelnas (Evaldas Grynais): ${totalProfitEvaldasCash}€</p>
+    <p>Pelnas (Evaldas Banku): ${totalProfitEvaldasBank}€</p>
+    <p>Pelnas (Dovydas Grynais): ${totalProfitDovydasCash}€</p>
+    <p>Pelnas (Dovydas Banku): ${totalProfitDovydasBank}€</p>
   `;
   document.body.insertBefore(profitCard, productList);
 }
@@ -89,7 +95,6 @@ function sellProduct(productId) {
     product.Kiekis -= parseInt(quantity);
   }
 
-  saveToLocalStorage();
   loadProducts();
 }
 
@@ -101,32 +106,8 @@ function takeProduct(productId) {
     product.Sau += parseInt(quantity);
   }
 
-  saveToLocalStorage();
   loadProducts();
 }
 
-function findProductById(productId) {
-  let product = null;
-  if (currentUser && !isAdmin) {
-    product = products[currentUser].find(p => p.id === productId);
-  } else if (isAdmin) {
-    product = [...products["Evaldas"], ...products["Dovydas"]].find(p => p.id === productId);
-  }
-  return product;
-}
-
-// Naudojame localStorage, kad išsaugotume prekes ir pelną
-function loadFromLocalStorage() {
-  const savedData = localStorage.getItem("products");
-  if (savedData) {
-    Object.assign(products, JSON.parse(savedData));
-  }
-}
-
-function saveToLocalStorage() {
-  localStorage.setItem("products", JSON.stringify(products));
-}
-
 // Pirmas puslapio užkrovimas
-loadFromLocalStorage();
 loadProducts();
