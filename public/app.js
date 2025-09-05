@@ -30,6 +30,7 @@ let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
 function loadProducts() {
   const evaldasColumn = document.getElementById("evaldas-column");
   const dovydasColumn = document.getElementById("dovydas-column");
+  const additionalNote = document.getElementById("additional-notes");
 
   evaldasColumn.innerHTML = '';
   dovydasColumn.innerHTML = '';
@@ -68,6 +69,12 @@ function loadProducts() {
     `;
     dovydasColumn.appendChild(productCard);
   });
+
+  // Pridėti tekstinį lauką po visais produktais (pastaboms)
+  additionalNote.innerHTML = `
+    <h3>Pastabos:</h3>
+    <textarea id="notes" rows="4" cols="50" placeholder="Įrašykite savo pastabas čia..."></textarea>
+  `;
 }
 
 // Funkcija, kuri atlieka pardavimą
@@ -78,7 +85,7 @@ function sellProduct(productId, productName) {
 
   const product = findProductById(productId);
   if (product) {
-    const profit = parseInt(totalAmount); // Naudojame bendrą sumą, o ne kiekvieną vienetą atskirai
+    const profit = parseInt(totalAmount); // Naudojame bendrą sumą
 
     if (product.id <= 9) { // Evaldo produktai
       if (paymentMethod === "Vokelis") {
