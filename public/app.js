@@ -108,7 +108,7 @@ function sellProduct(productId, productName) {
   const product = findProductById(productId);
   if (product) {
     const profit = parseInt(price) * parseInt(quantity);
-    
+
     // Jei produktas priklauso Evaldui
     if (product.id <= 9) {
       if (paymentMethod === "Vokelis") {
@@ -122,7 +122,7 @@ function sellProduct(productId, productName) {
         totalProfitDovydasVokelisEvaldui += profit;
       }
     } else { // Dovydo produktai
-      product.Vokelis += profit;  
+      product.Vokelis += profit;
       totalProfitDovydasVokelis += profit;
     }
 
