@@ -46,7 +46,9 @@ function loadProducts() {
       <p>Pasiimta sau: ${product.Sau} vienetų</p>
       <p>Vokelis: ${product.Vokelis}€</p>
       <p>Banke: ${product.Banke}€</p>
-      <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis/Bankas)</button>
+      <input type="text" id="quantity-${product.id}" placeholder="Įveskite kiekį" />
+      <input type="text" id="price-${product.id}" placeholder="Įveskite bendrą sumą" />
+      <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti</button>
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
     evaldasColumn.appendChild(productCard);
@@ -63,7 +65,9 @@ function loadProducts() {
       <p>Parduota: ${product.Parduota}</p>
       <p>Pasiimta sau: ${product.Sau} vienetų</p>
       <p>Vokelis: ${product.Vokelis}€</p>
-      <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis)</button>
+      <input type="text" id="quantity-${product.id}" placeholder="Įveskite kiekį" />
+      <input type="text" id="price-${product.id}" placeholder="Įveskite bendrą sumą" />
+      <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti</button>
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
     dovydasColumn.appendChild(productCard);
@@ -72,8 +76,8 @@ function loadProducts() {
 
 // Funkcija, kuri atlieka pardavimą
 function sellProduct(productId, productName) {
-  const quantity = prompt("Kiek vienetų parduota?");
-  const totalAmount = prompt("Kokia bendra pardavimo suma?");
+  const quantity = document.getElementById(`quantity-${productId}`).value;
+  const totalAmount = document.getElementById(`price-${productId}`).value;
   let paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke");
 
   const product = findProductById(productId);
