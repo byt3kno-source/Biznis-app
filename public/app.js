@@ -26,26 +26,11 @@ const products = {
 // Numatytoji vartotojo reikšmė
 let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
 
-// Kintamieji bendram pelnui
-let totalProfitEvaldasVokelis = 0;
-let totalProfitEvaldasBanke = 0;
-let totalProfitDovydasVokelis = 0;
-let totalProfitDovydasVokelisEvaldui = 0;
-let totalSoldUnitsEvaldas = 0;
-let totalSoldUnitsDovydas = 0;
-
 function loadProducts() {
   const productList = document.getElementById("product-list");
   productList.innerHTML = '';
 
   let userProducts = [...products["Evaldas"], ...products["Dovydas"]];
-  totalProfitEvaldasVokelis = 0;
-  totalProfitEvaldasBanke = 0;
-  totalProfitDovydasVokelis = 0;
-  totalProfitDovydasVokelisEvaldui = 0;
-  totalSoldUnitsEvaldas = 0;
-  totalSoldUnitsDovydas = 0;
-
   userProducts.forEach(product => {
     let Vokelis = product.Vokelis || 0;
     let Banke = product.Banke || 0;
@@ -58,36 +43,13 @@ function loadProducts() {
       <p>Kiekis: ${product.Kiekis}</p>
       <p>Parduota: ${product.Parduota}</p>
       <p>Pasiimta sau: ${product.Sau} vienetų</p>
+      <p>Vokelis: ${Vokelis}€ už ${product.Parduota}vnt.</p>
+      <p>Banke: ${Banke}€ už ${product.Parduota}vnt.</p>
       <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis/Bankas)</button>
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
     productList.appendChild(productCard);
-
-    if (product.id <= 9) { // Evaldo produktai
-      totalProfitEvaldasVokelis += Vokelis;
-      totalProfitEvaldasBanke += Banke;
-      totalProfitDovydasVokelisEvaldui += VokelisEvaldui;
-      totalSoldUnitsEvaldas += product.Parduota;
-    } else { // Dovydo produktai
-      totalProfitDovydasVokelis += Vokelis;
-      totalSoldUnitsDovydas += product.Parduota;
-    }
   });
-
-  const profitCard = document.getElementById('profit-card') || document.createElement('div');
-  profitCard.id = 'profit-card';
-  profitCard.classList.add('product-card');
-  profitCard.innerHTML = `
-    <h2>Bendras pelnas</h2>
-    <p>Evaldas Vokelis: ${totalProfitEvaldasVokelis}€ už ${totalSoldUnitsEvaldas}vnt.</p>
-    <p>Evaldas Banke: ${totalProfitEvaldasBanke}€ už ${totalSoldUnitsEvaldas}vnt.</p>
-    <p>Dovydas Vokelis: ${totalProfitDovydasVokelis}€ už ${totalSoldUnitsDovydas}vnt.</p>
-    <p>Dovydas Vokelis Evaldui: ${totalProfitDovydasVokelisEvaldui}€ už ${totalSoldUnitsEvaldas}vnt.</p>
-  `;
-  
-  if (!document.getElementById('profit-card')) {
-    document.body.insertBefore(profitCard, productList);
-  }
 }
 
 function sellProduct(productId, productName) {
@@ -106,17 +68,13 @@ function sellProduct(productId, productName) {
     if (product.id <= 9) { // Evaldo produktai
       if (paymentMethod === "Vokelis") {
         product.Vokelis += profit;
-        totalProfitEvaldasVokelis += profit;
       } else if (paymentMethod === "Banke") {
         product.Banke += profit;
-        totalProfitEvaldasBanke += profit;
       } else if (paymentMethod === "Dovydas Vokelis Evaldui") {
         product.VokelisEvaldui += profit;
-        totalProfitDovydasVokelisEvaldui += profit;
       }
     } else { // Dovydo produktai
       product.Vokelis += profit;  
-      totalProfitDovydasVokelis += profit;
     }
 
     product.Parduota += parseInt(quantity);
