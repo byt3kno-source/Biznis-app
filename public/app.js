@@ -30,7 +30,7 @@ let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
 function loadProducts() {
   const evaldasColumn = document.getElementById("evaldas-column");
   const dovydasColumn = document.getElementById("dovydas-column");
-  const additionalNote = document.getElementById("additional-notes");
+  const notesArea = document.getElementById("notes");
 
   evaldasColumn.innerHTML = '';
   dovydasColumn.innerHTML = '';
@@ -70,11 +70,8 @@ function loadProducts() {
     dovydasColumn.appendChild(productCard);
   });
 
-  // Pridėti tekstinį lauką po visais produktais (pastaboms)
-  additionalNote.innerHTML = `
-    <h3>Pastabos:</h3>
-    <textarea id="notes" rows="4" cols="50" placeholder="Įrašykite savo pastabas čia..."></textarea>
-  `;
+  // Užrašų sritis (pastabos)
+  notesArea.value = localStorage.getItem("notes") || "";
 }
 
 // Funkcija, kuri atlieka pardavimą
@@ -123,5 +120,14 @@ function findProductById(productId) {
   return product;
 }
 
+// Funkcija, kuri įrašo užrašus į localStorage
+function saveNotes() {
+  const notesArea = document.getElementById("notes");
+  localStorage.setItem("notes", notesArea.value);
+}
+
 // Pirmas puslapio užkrovimas
 loadProducts();
+
+// Išsaugoti užrašus kas kartą, kai keičiasi
+document.getElementById("notes").addEventListener('input', saveNotes);
