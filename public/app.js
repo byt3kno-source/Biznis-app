@@ -43,7 +43,6 @@ function loadProducts() {
   totalProfitDovydasVokelisEvaldui = 0;
 
   userProducts.forEach(product => {
-    // Užuot naudoję "undefined", užtikriname, kad pelnas visada yra 0
     let Vokelis = product.Vokelis || 0;
     let Banke = product.Banke || 0;
     let VokelisEvaldui = product.VokelisEvaldui || 0;
@@ -62,7 +61,6 @@ function loadProducts() {
     `;
     productList.appendChild(productCard);
 
-    // Apskaičiuojame pelną atskirai Evaldui ir Dovydui
     if (product.id <= 10) { // Evaldo produktai
       totalProfitEvaldasVokelis += Vokelis;
       totalProfitEvaldasBanke += Banke;
@@ -72,7 +70,6 @@ function loadProducts() {
     }
   });
 
-  // Bendras pelnas viršuje
   const profitCard = document.getElementById('profit-card') || document.createElement('div');
   profitCard.id = 'profit-card';
   profitCard.classList.add('product-card');
@@ -84,7 +81,6 @@ function loadProducts() {
     <p>Pelnas (Dovydas Vokelis Evaldui): ${totalProfitDovydasVokelisEvaldui}€</p>
   `;
   
-  // Įdedame pelno kortelę tik vieną kartą
   if (!document.getElementById('profit-card')) {
     document.body.insertBefore(profitCard, productList);
   }
@@ -93,7 +89,12 @@ function loadProducts() {
 function sellProduct(productId, productName) {
   const quantity = prompt("Kiek vienetų parduota?");
   const price = prompt("Kokia pardavimo kaina?");
-  const paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke, Dovydas Vokelis Evaldui");
+  let paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke, Dovydas Vokelis Evaldui (arba tiesiog įrašyk 'DE')");
+
+  // Jeigu įrašoma "DE", keičiam į pilną frazę
+  if (paymentMethod === "DE") {
+    paymentMethod = "Dovydas Vokelis Evaldui";
+  }
 
   const product = findProductById(productId);
   if (product) {
@@ -110,8 +111,7 @@ function sellProduct(productId, productName) {
     product.Parduota += parseInt(quantity);
     product.Kiekis -= parseInt(quantity);
 
-    // Pinigai pridedami tik prie atitinkamo produkto savininko
-    if (product.id <= 10) { // Evaldo produktai
+    if (product.id <=10) { // Evaldo produktai
       totalProfitEvaldasVokelis += profit;
       totalProfitEvaldasBanke += profit;
       totalProfitDovydasVokelisEvaldui += profit;
