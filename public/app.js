@@ -23,19 +23,9 @@ const products = {
   ]
 };
 
-// Prisijungimo pasirinkimas
-let isAdmin = true;
-
-function login() {
-  const userChoice = prompt("Choose user: Evaldas, Dovydas or Admin");
-
-  if (userChoice === "Admin") {
-    currentUser = "Admin";
-    isAdmin = true;
-  }
-
-  loadProducts();
-}
+// Numatytoji vartotojo reikšmė
+let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
+let isAdmin = currentUser === "Admin";
 
 function loadProducts() {
   if (!currentUser) return;
@@ -57,62 +47,62 @@ function loadProducts() {
     productCard.classList.add('product-card');
     productCard.innerHTML = `
       <h3>${product.name}</h3>
-      <p>Quantity: ${product.quantity}</p>
-      <p>Sales: ${product.sales}</p>
-      <p>Profit (Cash): ${product.profitCash}€</p>
-      <p>Profit (Bank): ${product.profitBank}€</p>
-      <p>Taken for Myself: ${product.takenForSelf} units</p>
-      <button onclick="sellProduct(${product.id})">Sell (Cash/Bank)</button>
-      <button onclick="takeProduct(${product.id})">Take for Myself</button>
+      <p>Kiekis: ${product.Kiekis}</p>
+      <p>Parduota: ${product.Parduota}</p>
+      <p>Grynais: ${product.Grynais}€</p>
+      <p>Banku: ${product.Banku}€</p>
+      <p>Paimta sau: ${product.Sau} vienetų</p>
+      <button onclick="sellProduct(${product.id})">Parduoti (Grynais/Banku)</button>
+      <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
     productList.appendChild(productCard);
 
-    totalProfitCash += product.profitCash;
-    totalProfitBank += product.profitBank;
+    totalProfitCash += product.Grynais;
+    totalProfitBank += product.Banku;
   });
 
   // Bendras pelnas viršuje
   const profitCard = document.createElement('div');
   profitCard.classList.add('product-card');
   profitCard.innerHTML = `
-    <h2>Total Profit for ${currentUser}</h2>
-    <p>Total Profit (Cash): ${totalProfitCash}€</p>
-    <p>Total Profit (Bank): ${totalProfitBank}€</p>
+    <h2>Bendras pelnas (${currentUser})</h2>
+    <p>Pelnas (Grynais): ${totalProfitCash}€</p>
+    <p>Pelnas (Banku): ${totalProfitBank}€</p>
   `;
   document.body.insertBefore(profitCard, productList);
 }
 
 function sellProduct(productId) {
-  const quantity = prompt("How many units sold?");
-  const price = prompt("What is the sale price?");
-  const paymentMethod = prompt("Payment method: Cash or Bank?");
-  
-  if (paymentMethod !== "Cash" && paymentMethod !== "Bank") {
-    alert("Invalid payment method!");
+  const quantity = prompt("Kiek vienetų parduota?");
+  const price = prompt("Kokia pardavimo kaina?");
+  const paymentMethod = prompt("Atsiskaitymo būdas: Grynais arba Banku");
+
+  if (paymentMethod !== "Grynais" && paymentMethod !== "Banku") {
+    alert("Neteisingas atsiskaitymo būdas!");
     return;
   }
 
   const product = findProductById(productId);
   if (product) {
     const profit = parseInt(price) * parseInt(quantity);
-    if (paymentMethod === "Cash") {
-      product.profitCash += profit;
+    if (paymentMethod === "Grynais") {
+      product.Grynais += profit;
     } else {
-      product.profitBank += profit;
+      product.Banku += profit;
     }
-    product.sales += parseInt(quantity);
-    product.quantity -= parseInt(quantity);
+    product.Parduota += parseInt(quantity);
+    product.Kiekis -= parseInt(quantity);
   }
 
   loadProducts();
 }
 
 function takeProduct(productId) {
-  const quantity = prompt("How many units will you take for yourself?");
+  const quantity = prompt("Kiek vienetų pasiimi sau?");
   const product = findProductById(productId);
   if (product) {
-    product.quantity -= parseInt(quantity);
-    product.takenForSelf += parseInt(quantity);
+    product.Kiekis -= parseInt(quantity);
+    product.Sau += parseInt(quantity);
   }
 
   loadProducts();
@@ -128,4 +118,5 @@ function findProductById(productId) {
   return product;
 }
 
-login();
+// Įkeliame prekes automatiškai, kai puslapis atidarytas
+loadProducts();
