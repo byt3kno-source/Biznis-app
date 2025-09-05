@@ -27,10 +27,13 @@ const products = {
 let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
 
 function loadProducts() {
-  const productList = document.getElementById("product-list");
-  productList.innerHTML = '';
+  const evaldasColumn = document.getElementById("evaldas-column");
+  const dovydasColumn = document.getElementById("dovydas-column");
+  
+  evaldasColumn.innerHTML = '';
+  dovydasColumn.innerHTML = '';
 
-  let userProducts = [...products["Evaldas"], ...products["Dovydas"]];
+  let userProducts = [...products["Evaldas"]];
   userProducts.forEach(product => {
     let Vokelis = product.Vokelis || 0;
     let Banke = product.Banke || 0;
@@ -43,26 +46,37 @@ function loadProducts() {
       <p>Kiekis: ${product.Kiekis}</p>
       <p>Parduota: ${product.Parduota}</p>
       <p>Pasiimta sau: ${product.Sau} vienetų</p>
-      ${product.id <= 9 ? `
-        <p>Vokelis: ${Vokelis}€</p>
-        <p>Banke: ${Banke}€</p>
-      ` : `
-        <p>Vokelis: ${Vokelis}€</p>
-      `}
+      <p>Vokelis: ${Vokelis}€</p>
+      <p>Banke: ${Banke}€</p>
       <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis/Bankas)</button>
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
-    productList.appendChild(productCard);
+    evaldasColumn.appendChild(productCard);
+  });
+
+  let dovydasProducts = [...products["Dovydas"]];
+  dovydasProducts.forEach(product => {
+    let Vokelis = product.Vokelis || 0;
+
+    const productCard = document.createElement('div');
+    productCard.classList.add('product-card');
+    productCard.innerHTML = `
+      <h3>${product.name}</h3>
+      <p>Kiekis: ${product.Kiekis}</p>
+      <p>Parduota: ${product.Parduota}</p>
+      <p>Pasiimta sau: ${product.Sau} vienetų</p>
+      <p>Vokelis: ${Vokelis}€</p>
+      <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis)</button>
+      <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
+    `;
+    dovydasColumn.appendChild(productCard);
   });
 }
 
 function sellProduct(productId, productName) {
   const quantity = prompt("Kiek vienetų parduota?");
   const price = prompt("Kokia pardavimo kaina?");
-  let paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke, DE");
-
-  if (paymentMethod === "DE") {
-    paymentMethod = "Dovydas Vokelis Evaldui";
+  let paymentMethod = prompt("Atsiskaitymo būdas: Vokelis, Banke");
   }
 
   const product = findProductById(productId);
@@ -74,8 +88,6 @@ function sellProduct(productId, productName) {
         product.Vokelis += profit;
       } else if (paymentMethod === "Banke") {
         product.Banke += profit;
-      } else if (paymentMethod === "Dovydas Vokelis Evaldui") {
-        product.VokelisEvaldui += profit;
       }
     } else { // Dovydo produktai
       product.Vokelis += profit;
