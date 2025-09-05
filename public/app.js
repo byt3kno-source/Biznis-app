@@ -23,25 +23,74 @@ const products = {
   ]
 };
 
+// Pavyzdinis duomenų rinkinys
+const products = {
+  "Evaldas": [
+    { id: 1, name: "Fizzy Cherry Ice & Blueberry Cotton Candy", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 2, name: "Mixed Berries & Double Apple Ice", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 3, name: "Blue Razz Lemonade & Watermelon Bubblegum", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 4, name: "Strawberry Watermelon Bubblegum & Mixed Fruit", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 5, name: "Sour Apple Raspberry & Strawberry Big Bang", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 6, name: "Peach Berry & Watermelon Mango Peach", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 7, name: "Strawberry Cherry & Kiwi Passion Fruit", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 8, name: "Gummy Bear & Strawberry Cola", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 9, name: "Triple Melon Ice & Raspberry Watermelon", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 }
+  ],
+  "Dovydas": [
+    { id: 10, name: "Watermelon Ice & Lemon Lime", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 11, name: "Grape Ice & Strawberry Kiwi", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 12, name: "Strawberry Raspberry Cherry & Love 666", Kiekis: 20, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 13, name: "Cherry Cola Ice & Strawberry Raspberry Candy", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 14, name: "Blueberry Ice & Black Dragon Ice", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 15, name: "Strawberry Cherry & Kiwi Passion Fruit", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 16, name: "Banana Pineapple Ice & Red Bull Ice", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 17, name: "Red Bull Strawberry & Blackcurrant Ice", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 }
+  ]
+};
+
+// Pavyzdinis duomenų rinkinys
+const products = {
+  "Evaldas": [
+    { id: 1, name: "Fizzy Cherry Ice & Blueberry Cotton Candy", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 2, name: "Mixed Berries & Double Apple Ice", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 3, name: "Blue Razz Lemonade & Watermelon Bubblegum", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 4, name: "Strawberry Watermelon Bubblegum & Mixed Fruit", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 5, name: "Sour Apple Raspberry & Strawberry Big Bang", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 6, name: "Peach Berry & Watermelon Mango Peach", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 7, name: "Strawberry Cherry & Kiwi Passion Fruit", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 8, name: "Gummy Bear & Strawberry Cola", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 9, name: "Triple Melon Ice & Raspberry Watermelon", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 }
+  ],
+  "Dovydas": [
+    { id: 10, name: "Watermelon Ice & Lemon Lime", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 11, name: "Grape Ice & Strawberry Kiwi", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 12, name: "Strawberry Raspberry Cherry & Love 666", Kiekis: 20, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 13, name: "Cherry Cola Ice & Strawberry Raspberry Candy", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 14, name: "Blueberry Ice & Black Dragon Ice", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 15, name: "Strawberry Cherry & Kiwi Passion Fruit", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 16, name: "Banana Pineapple Ice & Red Bull Ice", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 },
+    { id: 17, name: "Red Bull Strawberry & Blackcurrant Ice", Kiekis: 10, Parduota: 0, Vokelis: 0, Banke: 0, Sau: 0, VokelisEvaldui: 0 }
+  ]
+};
+
 // Numatytoji vartotojo reikšmė
 let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
-let isAdmin = currentUser === "Admin";
 
 // Kintamieji bendram pelnui
-let totalProfitEvaldasCash = 0;
-let totalProfitEvaldasBank = 0;
-let totalProfitDovydasCash = 0;
-let totalProfitDovydasBank = 0;
+let totalProfitEvaldasVokelis = 0;
+let totalProfitEvaldasBanke = 0;
+let totalProfitDovydasVokelis = 0;
+let totalProfitDovydasVokelisEvaldui = 0;
 
 function loadProducts() {
   const productList = document.getElementById("product-list");
   productList.innerHTML = '';
 
   let userProducts = [...products["Evaldas"], ...products["Dovydas"]];
-  totalProfitEvaldasCash = 0;
-  totalProfitEvaldasBank = 0;
-  totalProfitDovydasCash = 0;
-  totalProfitDovydasBank = 0;
+  totalProfitEvaldasVokelis = 0;
+  totalProfitEvaldasBanke = 0;
+  totalProfitDovydasVokelis = 0;
+  totalProfitDovydasVokelisEvaldui = 0;
 
   userProducts.forEach(product => {
     const productCard = document.createElement('div');
@@ -50,21 +99,21 @@ function loadProducts() {
       <h3>${product.name}</h3>
       <p>Kiekis: ${product.Kiekis}</p>
       <p>Parduota: ${product.Parduota}</p>
-      <p>Grynais: ${product.Grynais}€</p>
-      <p>Banku: ${product.Banku}€</p>
+      <p>Vokelis: ${product.Vokelis}€</p>
+      <p>Banke: ${product.Banke}€</p>
       <p>Paimta sau: ${product.Sau} vienetų</p>
-      <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Grynais/Banku)</button>
+      <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis/Bankas)</button>
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
     productList.appendChild(productCard);
 
     // Apskaičiuojame pelną atskirai Evaldui ir Dovydui
-    if (product.id <= 10) {
-      totalProfitEvaldasCash += product.Grynais;
-      totalProfitEvaldasBank += product.Banku;
-    } else {
-      totalProfitDovydasCash += product.Grynais;
-      totalProfitDovydasBank += product.Banku;
+    if (product.id <= 9) { // Evaldo produktai
+      totalProfitEvaldasVokelis += product.Vokelis;
+      totalProfitEvaldasBanke += product.Banke;
+    } else { // Dovydo produktai
+      totalProfitDovydasVokelis += product.Vokelis;
+      totalProfitDovydasVokelisEvaldui += product.VokelisEvaldui;
     }
   });
 
@@ -74,10 +123,10 @@ function loadProducts() {
   profitCard.classList.add('product-card');
   profitCard.innerHTML = `
     <h2>Bendras pelnas</h2>
-    <p>Pelnas (Evaldas Grynais): ${totalProfitEvaldasCash}€</p>
-    <p>Pelnas (Evaldas Banku): ${totalProfitEvaldasBank}€</p>
-    <p>Pelnas (Dovydas Grynais): ${totalProfitDovydasCash}€</p>
-    <p>Pelnas (Dovydas Banku): ${totalProfitDovydasBank}€</p>
+    <p>Pelnas (Evaldas Vokelis): ${totalProfitEvaldasVokelis}€</p>
+    <p>Pelnas (Evaldas Banke): ${totalProfitEvaldasBanke}€</p>
+    <p>Pelnas (Dovydas Vokelis): ${totalProfitDovydasVokelis}€</p>
+    <p>Pelnas (Dovydas Vokelis Evaldui): ${totalProfitDovydasVokelisEvaldui}€</p>
   `;
   
   // Įdedame pelno kortelę tik vieną kartą
@@ -89,26 +138,27 @@ function loadProducts() {
 function sellProduct(productId, productName) {
   const quantity = prompt("Kiek vienetų parduota?");
   const price = prompt("Kokia pardavimo kaina?");
-  const paymentMethod = prompt("Atsiskaitymo būdas: Grynais arba Banku");
+  const paymentMethod = prompt("Atsiskaitymo būdas: Vokelis arba Banke");
 
   const product = findProductById(productId);
   if (product) {
     const profit = parseInt(price) * parseInt(quantity);
-    if (paymentMethod === "Grynais") {
-      product.Grynais += profit;
-    } else {
-      product.Banku += profit;
+    if (paymentMethod === "Vokelis") {
+      product.Vokelis += profit;
+    } else if (paymentMethod === "Banke") {
+      product.Banke += profit;
     }
+
     product.Parduota += parseInt(quantity);
     product.Kiekis -= parseInt(quantity);
 
     // Pinigai pridedami tik prie atitinkamo produkto savininko
-    if (product.id <= 10) {
-      totalProfitEvaldasCash += profit;
-      totalProfitEvaldasBank += profit;
-    } else {
-      totalProfitDovydasCash += profit;
-      totalProfitDovydasBank += profit;
+    if (product.id <= 9) { // Evaldo produktai
+      totalProfitEvaldasVokelis += profit;
+      totalProfitEvaldasBanke += profit;
+    } else { // Dovydo produktai
+      totalProfitDovydasVokelis += profit;
+      totalProfitDovydasVokelisEvaldui += profit;
     }
   }
 
