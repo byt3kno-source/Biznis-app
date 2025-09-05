@@ -50,3 +50,19 @@ body {
     width: 300px;
     margin: 10px;
 }
+
+/* Add to Home Screen button with logo */
+.add-to-home-screen-btn {
+    width: 80px; /* Size of the logo button */
+    height: 80px;
+    background-image: url('images/A_digital_vector_illustration_features_a_shopping_.png'); /* Logo */
+    background-size: cover;
+    background-position: center;
+    border: none;
+    border-radius: 50%; /* Circle button */
+    cursor: pointer;
+}
+
+.add-to-home-screen-btn:hover {
+    opacity: 0.8; /* Slight transparency on hover */
+}
