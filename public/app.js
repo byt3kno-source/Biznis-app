@@ -23,24 +23,24 @@ const products = {
   ]
 };
 
-// Naudojame localStorage, kad išsaugotume prekes ir pelną
-function loadFromLocalStorage() {
-  const savedData = localStorage.getItem("products");
-  if (savedData) {
-    Object.assign(products, JSON.parse(savedData));
-  }
-}
-
-function saveToLocalStorage() {
-  localStorage.setItem("products", JSON.stringify(products));
-}
+// Numatytoji vartotojo reikšmė
+let currentUser = "Evaldas"; // Pavyzdžiui, numatytas vartotojas - Evaldas
+let isAdmin = currentUser === "Admin";
 
 function loadProducts() {
-  loadFromLocalStorage();
+  if (!currentUser) return;
   const productList = document.getElementById("product-list");
   productList.innerHTML = '';
 
-  let userProducts = products["Evaldas"].concat(products["Dovydas"]);
+  let userProducts = [];
+  if (isAdmin) {
+    userProducts = [...products["Evaldas"], ...products["Dovydas"]];
+  } else {
+    userProducts = products[currentUser];
+  }
+
+  let totalProfitCash = 0;
+  let totalProfitBank = 0;
 
   userProducts.forEach(product => {
     const productCard = document.createElement('div');
@@ -56,10 +56,22 @@ function loadProducts() {
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
     productList.appendChild(productCard);
+
+    totalProfitCash += product.Grynais;
+    totalProfitBank += product.Banku;
   });
+
+  // Bendras pelnas viršuje
+  const profitCard = document.createElement('div');
+  profitCard.classList.add('product-card');
+  profitCard.innerHTML = `
+    <h2>Bendras pelnas (${currentUser})</h2>
+    <p>Pelnas (Grynais): ${totalProfitCash}€</p>
+    <p>Pelnas (Banku): ${totalProfitBank}€</p>
+  `;
+  document.body.insertBefore(profitCard, productList);
 }
 
-// Funkcijos pardavimams ir paėmimui sau liks tos pačios
 function sellProduct(productId) {
   const quantity = prompt("Kiek vienetų parduota?");
   const price = prompt("Kokia pardavimo kaina?");
@@ -93,5 +105,28 @@ function takeProduct(productId) {
   loadProducts();
 }
 
+function findProductById(productId) {
+  let product = null;
+  if (currentUser && !isAdmin) {
+    product = products[currentUser].find(p => p.id === productId);
+  } else if (isAdmin) {
+    product = [...products["Evaldas"], ...products["Dovydas"]].find(p => p.id === productId);
+  }
+  return product;
+}
+
+// Naudojame localStorage, kad išsaugotume prekes ir pelną
+function loadFromLocalStorage() {
+  const savedData = localStorage.getItem("products");
+  if (savedData) {
+    Object.assign(products, JSON.parse(savedData));
+  }
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem("products", JSON.stringify(products));
+}
+
 // Pirmas puslapio užkrovimas
+loadFromLocalStorage();
 loadProducts();
