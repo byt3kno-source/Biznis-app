@@ -113,7 +113,8 @@ function sellProduct(productId, productName) {
         totalProfitDovydasVokelisEvaldui += profit;
       }
     } else { // Dovydo produktai
-      product.Vokelis += profit;  // Visi Dovydo produktai pinigus prideda į Vokelis
+      // Dovydo produktai visada prideda pinigus į Vokelis
+      product.Vokelis += profit;  
       totalProfitDovydasVokelis += profit;
     }
 
