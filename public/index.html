@@ -5,30 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizniukas</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js').then(registration => {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                }).catch(error => {
-                    console.log('Service Worker registration failed:', error);
-                });
-            });
-        }
-
-        function addToHomeScreen() {
-            alert('Logotipas pridėtas prie pagrindinio ekrano!');
-            // Galite čia pridėti papildomą logiką, kad prireikus įvykdyti tikrą "Add to Home Screen" procesą
-        }
-    </script>
 </head>
 <body>
     <h1>Bizniukas</h1>
-    <div id="product-list"></div>
-
-    <!-- Add to Home Screen button -->
-    <button class="add-to-home-screen-btn" onclick="addToHomeScreen()"></button>
+    
+    <!-- Atskiri stulpeliai Evaldo ir Dovydo produktams -->
+    <div style="display: flex; justify-content: space-between;">
+        <div id="evaldas-column" style="width: 45%;"></div>
+        <div id="dovydas-column" style="width: 45%;"></div>
+    </div>
 
     <script src="app.js"></script>
 </body>
