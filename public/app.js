@@ -53,14 +53,12 @@ function loadProducts() {
       <h3>${product.name}</h3>
       <p>Kiekis: ${product.Kiekis}</p>
       <p>Parduota: ${product.Parduota}</p>
-      <p>Vokelis: ${Vokelis}€</p>
-      <p>Banke: ${Banke}€</p>
-      <p>Paimta sau: ${product.Sau} vienetų</p>
       <button onclick="sellProduct(${product.id}, '${product.name}')">Parduoti (Vokelis/Bankas)</button>
       <button onclick="takeProduct(${product.id})">Pasiimti sau</button>
     `;
     productList.appendChild(productCard);
 
+    // Apskaičiuojame pelną atskirai Evaldui ir Dovydui
     if (product.id <= 9) { // Evaldo produktai
       totalProfitEvaldasVokelis += Vokelis;
       totalProfitEvaldasBanke += Banke;
@@ -75,15 +73,26 @@ function loadProducts() {
   profitCard.classList.add('product-card');
   profitCard.innerHTML = `
     <h2>Bendras pelnas</h2>
-    <p>Evaldas Vokelis: ${totalProfitEvaldasVokelis}€</p>
-    <p>Evaldas Banke: ${totalProfitEvaldasBanke}€</p>
-    <p>Dovydas Vokelis: ${totalProfitDovydasVokelis}€</p>
-    <p>Dovydas Vokelis Evaldui: ${totalProfitDovydasVokelisEvaldui}€</p>
+    <p>Evaldas Vokelis: ${totalProfitEvaldasVokelis}€ už ${calculateSoldQuantity(1)}vnt.</p>
+    <p>Evaldas Banke: ${totalProfitEvaldasBanke}€ už ${calculateSoldQuantity(1)}vnt.</p>
+    <p>Dovydas Vokelis: ${totalProfitDovydasVokelis}€ už ${calculateSoldQuantity(10)}vnt.</p>
+    <p>Dovydas Vokelis Evaldui: ${totalProfitDovydasVokelisEvaldui}€ už ${calculateSoldQuantity(10)}vnt.</p>
   `;
   
   if (!document.getElementById('profit-card')) {
     document.body.insertBefore(profitCard, productList);
   }
+}
+
+function calculateSoldQuantity(userId) {
+  let soldQuantity = 0;
+  let userProducts = [...products["Evaldas"], ...products["Dovydas"]];
+  userProducts.forEach(product => {
+    if (product.id <= userId) {
+      soldQuantity += product.Parduota;
+    }
+  });
+  return soldQuantity;
 }
 
 function sellProduct(productId, productName) {
@@ -113,7 +122,6 @@ function sellProduct(productId, productName) {
         totalProfitDovydasVokelisEvaldui += profit;
       }
     } else { // Dovydo produktai
-      // Dovydo produktai visada prideda pinigus į Vokelis
       product.Vokelis += profit;  
       totalProfitDovydasVokelis += profit;
     }
