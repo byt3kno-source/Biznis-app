@@ -1,20 +1,15 @@
 {
-  "name": "Inventory App",
-  "short_name": "Inventory",
-  "description": "An app for managing products and sales.",
+  "name": "Bizniukas",
+  "short_name": "Bizniukas",
+  "description": "Pardavimų valdymo aplikacija",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "icon.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512x512.png",
-      "sizes": "512x512",
+      "src": "images/A_digital_vector_illustration_features_a_shopping_.png",
+      "sizes": "80x80",
       "type": "image/png"
     }
   ]
